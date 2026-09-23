@@ -1,0 +1,665 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background: #050508;
+    color: white;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+button {
+    font: inherit;
+}
+
+.scene {
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 42px 56px;
+
+    background:
+        radial-gradient(circle at 50% 45%,
+            rgba(81, 39, 139, 0.42),
+            transparent 30%),
+        radial-gradient(circle at 30% 30%,
+            rgba(255, 41, 117, 0.15),
+            transparent 35%),
+        linear-gradient(145deg,
+            #08080d,
+            #10101b 55%,
+            #07070b);
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px);
+
+    background-size: 50px 50px;
+
+    mask-image: linear-gradient(to bottom,
+            transparent,
+            black 30%,
+            black 70%,
+            transparent);
+
+    pointer-events: none;
+}
+
+.ambient {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+}
+
+.ambient-one {
+    width: 400px;
+    height: 400px;
+    background: rgba(147, 51, 234, 0.16);
+    left: -180px;
+    top: 20%;
+}
+
+.ambient-two {
+    width: 500px;
+    height: 500px;
+    background: rgba(236, 72, 153, 0.1);
+    right: -200px;
+    bottom: -100px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 10px;
+    letter-spacing: 0.35em;
+
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.topbar h1 {
+    margin: 0;
+
+    font-size: clamp(24px, 3vw, 42px);
+    letter-spacing: -0.04em;
+}
+
+.counter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    border-right: 2px solid #b456ff;
+    padding-right: 14px;
+}
+
+.counter span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.counter strong {
+    font-size: 26px;
+}
+
+/* =========================
+   CENTER
+========================= */
+
+.draw-area {
+    position: relative;
+    z-index: 3;
+
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 500px;
+}
+
+.intro {
+    position: absolute;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+.intro-label {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+
+    color: #c77dff;
+}
+
+.intro h2 {
+    margin: 18px 0 15px;
+
+    font-size: clamp(34px, 5vw, 76px);
+    line-height: 0.97;
+    letter-spacing: -0.065em;
+}
+
+.intro p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.45);
+}
+
+/* =========================
+   GIFT BOX
+========================= */
+
+.gift {
+    width: 220px;
+    height: 220px;
+
+    position: absolute;
+
+    z-index: 10;
+}
+
+.gift-body {
+    position: absolute;
+
+    bottom: 0;
+    left: 10px;
+
+    width: 200px;
+    height: 165px;
+
+    overflow: hidden;
+
+    border-radius: 8px 8px 18px 18px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.25),
+            transparent 35%),
+        linear-gradient(145deg,
+            #9c2aff,
+            #5e17aa);
+
+    box-shadow:
+        0 40px 80px rgba(109, 40, 217, 0.45),
+        inset 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.gift-lid {
+    position: absolute;
+
+    top: 29px;
+    left: 0;
+
+    width: 220px;
+    height: 55px;
+
+    border-radius: 9px;
+
+    z-index: 4;
+
+    background: linear-gradient(135deg,
+            #c25cff,
+            #7e22ce);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 4px rgba(255, 255, 255, 0.15);
+}
+
+.ribbon-vertical,
+.lid-ribbon-vertical {
+    position: absolute;
+
+    width: 38px;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: linear-gradient(90deg,
+            #ffb703,
+            #ffd166,
+            #ff9f1c);
+}
+
+.ribbon-vertical {
+    height: 100%;
+}
+
+.lid-ribbon-vertical {
+    height: 100%;
+}
+
+.ribbon-horizontal {
+    position: absolute;
+
+    left: 0;
+    top: 53px;
+
+    width: 100%;
+    height: 32px;
+
+    background: linear-gradient(#ffb703,
+            #ff9f1c);
+}
+
+.bow {
+    position: absolute;
+
+    width: 75px;
+    height: 50px;
+
+    top: -43px;
+
+    border: 15px solid #ffb703;
+}
+
+.bow-left {
+    left: 38px;
+
+    border-radius: 60px 15px 60px 15px;
+    transform: rotate(25deg);
+}
+
+.bow-right {
+    right: 38px;
+
+    border-radius: 15px 60px 15px 60px;
+    transform: rotate(-25deg);
+}
+
+.bow-center {
+    width: 35px;
+    height: 35px;
+
+    position: absolute;
+
+    top: -22px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #ffc107;
+
+    border-radius: 50%;
+
+    z-index: 8;
+}
+
+.gift-star {
+    position: absolute;
+
+    font-size: 35px;
+
+    top: 67%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: rgba(255, 255, 255, 0.85);
+
+    text-shadow: 0 0 20px white;
+}
+
+/* =========================
+   WINNER
+========================= */
+
+.winner {
+    position: absolute;
+
+    z-index: 20;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+.winner-label {
+    display: block;
+
+    margin-bottom: 18px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.5em;
+
+    color: #ffc857;
+
+    text-shadow: 0 0 25px rgba(255, 200, 87, 0.8);
+}
+
+.winner-card {
+    min-width: min(720px, 80vw);
+
+    padding: 34px 50px 30px;
+
+    position: relative;
+
+    background: rgba(10, 10, 17, 0.72);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 22px;
+
+    backdrop-filter: blur(30px);
+
+    box-shadow:
+        0 0 80px rgba(168, 85, 247, 0.4),
+        0 30px 100px rgba(0, 0, 0, 0.5),
+        inset 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.winner-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: inherit;
+
+    padding: 1px;
+
+    background: linear-gradient(100deg,
+            transparent,
+            rgba(255, 214, 102, 0.8),
+            #bf5af2,
+            transparent);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+
+    pointer-events: none;
+}
+
+.winner-crown {
+    display: block;
+
+    font-size: 32px;
+
+    margin-bottom: 6px;
+
+    color: #ffd166;
+}
+
+.winner h2 {
+    margin: 0;
+
+    font-size: clamp(36px, 6vw, 82px);
+
+    letter-spacing: -0.06em;
+
+    background: linear-gradient(90deg,
+            white,
+            #ffe6a7,
+            white);
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.winner-line {
+    width: 70px;
+    height: 2px;
+
+    margin: 18px auto;
+
+    background: #ffd166;
+
+    box-shadow: 0 0 15px #ffd166;
+}
+
+.winner p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particles {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    z-index: 11;
+}
+
+.particle {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 3px;
+}
+
+.particle-1 {
+    background: #ffd166;
+}
+
+.particle-2 {
+    background: #a855f7;
+}
+
+.particle-3 {
+    background: #f472b6;
+}
+
+.particle-4 {
+    background: white;
+}
+
+/* =========================
+   SHOCKWAVE
+========================= */
+
+.shockwave {
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    border: 4px solid white;
+    border-radius: 50%;
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 30px white,
+        inset 0 0 20px white;
+}
+
+/* =========================
+   FLASH
+========================= */
+
+.flash {
+    position: fixed;
+
+    inset: 0;
+
+    background: white;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 90;
+}
+
+/* =========================
+   IRIS
+========================= */
+
+.iris-layer {
+    --iris-size: 150vmax;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 80;
+
+    pointer-events: none;
+}
+
+.iris-darkness {
+    width: 100%;
+    height: 100%;
+
+    background: #020204;
+
+    mask-image: radial-gradient(circle at center,
+            transparent 0,
+            transparent var(--iris-size),
+            black calc(var(--iris-size) + 2px),
+            black 100%);
+
+    -webkit-mask-image: radial-gradient(circle at center,
+            transparent 0,
+            transparent var(--iris-size),
+            black calc(var(--iris-size) + 2px),
+            black 100%);
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+    position: relative;
+    z-index: 100;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.phase {
+    font-family: monospace;
+    font-size: 11px;
+
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.phase b {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.draw-button {
+    min-width: 230px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 17px 22px;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: white;
+
+    color: #111;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.draw-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 40px rgba(255, 255, 255, 0.2),
+        0 0 45px rgba(168, 85, 247, 0.35);
+}
+
+.draw-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.button-arrow {
+    font-size: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+    .scene {
+        padding: 25px;
+    }
+
+    .winner-card {
+        min-width: 88vw;
+        padding: 25px;
+    }
+
+    .controls {
+        gap: 20px;
+    }
+
+    .phase {
+        display: none;
+    }
+
+    .draw-button {
+        width: 100%;
+    }
+}

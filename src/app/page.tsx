@@ -72,7 +72,7 @@ export default function ModernLuckyDraw() {
         if (!audioCtxRef.current) {
             audioCtxRef.current = new AudioContext();
         }
-        if (audioCtxRef.current.state === 'suspended') void audioCtxRef.current.resume().catch(() => {});
+        if (audioCtxRef.current.state === 'suspended') void audioCtxRef.current.resume().catch(() => { });
         return audioCtxRef.current;
     }, []);
 
@@ -462,12 +462,9 @@ export default function ModernLuckyDraw() {
 
             {/* Clean Event Header */}
             <header className="mb-5 text-center z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 mb-2 rounded-full border border-slate-200/80 bg-white/70 backdrop-blur-sm text-[11px] font-semibold tracking-widest text-slate-500 uppercase shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Live Prize Draw Event
-                </div>
+
                 <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-                    LUCKY DRAW
+                    ICTC e-Learning Award
                 </h1>
                 {prizeName && (
                     <p className="mt-3 max-w-3xl break-words text-balance text-xl font-semibold tracking-tight text-slate-600 md:text-2xl" aria-live="polite">
