@@ -88,15 +88,15 @@ begin
   delete from public.prizes where id=(payload->>'id')::uuid;
   if s->>'currentPrizeId'=payload->>'id' then s := '{"phase":"READY","countdownValue":3}'::jsonb; end if;
  elsif action='clear_prizes' then
-  delete from public.prizes;
+  delete from public.prizes where id is not null;
   s := '{"phase":"READY","countdownValue":3}'::jsonb;
  elsif action='clear_participants' then
-  delete from public.participants;
+  delete from public.participants where id is not null;
   s := '{"phase":"READY","countdownValue":3}'::jsonb;
  elsif action='reset_event' then
-  delete from public.draw_logs;
-  update public.participants set status='Active';
-  update public.prizes set drawn_amount=0,status='Ready';
+  delete from public.draw_logs where id is not null;
+  update public.participants set status='Active' where id is not null;
+  update public.prizes set drawn_amount=0,status='Ready' where id is not null;
   s := '{"phase":"READY","countdownValue":3}'::jsonb;
  else raise exception 'Unknown event action';
  end if;
