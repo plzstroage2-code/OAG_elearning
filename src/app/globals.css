@@ -1,45 +1,348 @@
 @import "tailwindcss";
 
 /* The reveal takes over the whole room, beyond the reel's clipped viewport. */
-.draw-screen { isolation: isolate; }
-.suspense-vignette { position: fixed; inset: 0; pointer-events: none; z-index: 8; opacity: 0; background: radial-gradient(ellipse at center, transparent 15%, #091522e8 100%); transition: opacity 1.3s; }
-.draw-suspense .suspense-vignette { opacity: 1; }
-.draw-suspense .reel-viewport { box-shadow: 0 0 75px #fbbf2450; transition: box-shadow 1s; }
-.winner-stage { position: fixed; inset: 0; z-index: 50; overflow: hidden; color: #fff8e7; background: radial-gradient(ellipse at 50% 42%, #25433a 0%, #0b211e 42%, #040e12 85%); animation: stageReveal .65s ease-out both; }
-.winner-content { position: relative; z-index: 2; min-height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 44px 24px 125px; }
-.winner-eyebrow { display: flex; align-items: center; gap: 14px; color: #e9cf90; font-size: 11px; letter-spacing: .3em; animation: revealRise .7s .25s both; }
-.winner-trophy { display: grid; place-items: center; width: clamp(84px, 14vh, 140px); aspect-ratio: 1; margin: 25px 0 20px; border: 1px solid #f8d78166; border-radius: 50%; background: radial-gradient(circle at 35% 20%, #ffe3a33b, #d9a6330a); color: #fbd785; box-shadow: 0 0 65px #ffd15c25, inset 0 0 24px #ffda7212; animation: trophyEntrance 1s cubic-bezier(.16,1,.3,1) both; }
-.winner-trophy svg { width: 55%; height: 55%; filter: drop-shadow(0 3px 10px #ffbf4050); }
-.winner-heading { color: #f6d88d; font-size: clamp(13px, 1.8vw, 22px); font-weight: 600; letter-spacing: .25em; animation: revealRise .7s .2s both; }
-.winner-name { max-width: 1200px; margin: 18px 0 24px; padding: 0 8px; font-size: clamp(32px, 6.8vw, 100px); font-weight: 800; line-height: 1.4; overflow-wrap: anywhere; text-wrap: balance; color: #fff9e9; text-shadow: 0 3px 0 #bca36d44, 0 0 65px #ffdd8240; animation: nameEntrance 1s .3s cubic-bezier(.16,1,.3,1) both; }
-.winner-rule { height: 1px; width: min(300px, 60vw); background: linear-gradient(90deg, transparent, #eac575, transparent); animation: revealRise .7s .6s both; }
-.winner-prize { max-width: min(900px, 100%); margin: 0 0 22px; color: #eedcae; font-size: clamp(18px, 2.5vw, 32px); font-weight: 400; line-height: 1.5; overflow-wrap: anywhere; text-wrap: balance; animation: revealRise .7s .6s both; }
-.winner-congratulations { margin: 20px 0 7px; font-size: clamp(18px, 2vw, 26px); color: #eedcae; animation: revealRise .7s .7s both; }
-.winner-congratulations span { margin-left: 8px; font-weight: 300; }
-.winner-pool { font-size: 12px; color: #a8bfb5; letter-spacing: .06em; animation: revealRise .7s .9s both; }
-.winner-rays { position: absolute; top: calc(45% - 80vmax); left: calc(50% - 80vmax); width: 160vmax; height: 160vmax; background: repeating-conic-gradient(from 0deg, transparent 0deg 19deg, #fbe5a508 20deg 29deg, transparent 30deg 40deg); animation: raysTurn 90s linear infinite; pointer-events: none; }
-.winner-spotlight { position: absolute; top: -25%; width: 45%; height: 130%; background: linear-gradient(#ffdf8c15, transparent 80%); clip-path: polygon(47% 0, 53% 0, 100% 100%, 0 100%); transform-origin: 50% 0; pointer-events: none; }
-.spotlight-left { left: 0; --angle: -18deg; animation: spotlightSweep 8s ease-in-out infinite alternate; }
-.spotlight-right { right: 0; --angle: 18deg; animation: spotlightSweep 8s -4s ease-in-out infinite alternate-reverse; }
-.winner-ring { position: absolute; left: calc(50% - 150px); top: calc(45% - 150px); width: 300px; height: 300px; border: 1px solid #ffe6a4; border-radius: 50%; pointer-events: none; animation: ringExpand 1.4s ease-out both; }
-.winner-stars { position: absolute; inset: 0; pointer-events: none; }
-.winner-stars i { position: absolute; width: var(--size); height: var(--size); background: #ffe4a0; border-radius: 50%; box-shadow: 0 0 12px #ffe4a0; animation: starFloat 4s var(--delay) ease-in-out infinite alternate; }
-.draw-won .draw-controls { position: fixed; bottom: 22px; left: 0; right: 0; z-index: 60; margin: 0; }
-.draw-won .draw-controls > div { color: #c7d9cb; border-color: #d4e9d21f; background: #10261eee; }
-.draw-won .draw-controls button { background: #f4d48b; color: #142820; box-shadow: 0 4px 25px #0003; }
-@keyframes stageReveal { from { opacity: 0; } to { opacity: 1; } }
-@keyframes revealRise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes nameEntrance { from { opacity: 0; transform: translateY(35px) scale(.82); filter: blur(12px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-@keyframes trophyEntrance { from { opacity: 0; transform: translateY(40px) scale(.3) rotate(-18deg); } to { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
-@keyframes raysTurn { to { transform: rotate(360deg); } }
-@keyframes spotlightSweep { from { transform: rotate(var(--angle)); } to { transform: rotate(calc(var(--angle) * -1)); } }
-@keyframes ringExpand { from { transform: scale(.3); opacity: .8; } to { transform: scale(5); opacity: 0; } }
-@keyframes starFloat { from { opacity: .15; transform: translateY(12px); } to { opacity: .8; transform: translateY(-14px); } }
-@media (max-height: 650px) { .winner-content { padding-top: 22px; } .winner-trophy { width: 64px; margin: 12px 0; } .winner-name { font-size: clamp(28px, 5vw, 64px); margin: 8px 0 12px; } .winner-congratulations { margin-top: 10px; } }
+.draw-screen {
+  isolation: isolate;
+}
+
+.suspense-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 15%, #091522e8 100%);
+  transition: opacity 1.3s;
+}
+
+.draw-suspense .suspense-vignette {
+  opacity: 1;
+}
+
+.draw-suspense .reel-viewport {
+  box-shadow: 0 0 75px #fbbf2450;
+  transition: box-shadow 1s;
+}
+
+.winner-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  color: #5b3a20;
+  background: radial-gradient(ellipse at 50% 42%, #fff6ec 0%, #fde3c8 45%, #f7cd9e 85%);
+  ;
+  animation: stageReveal .65s ease-out both;
+}
+
+.winner-content {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 44px 24px 125px;
+}
+
+.winner-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #c2410c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3em;
+  animation: revealRise .7s .25s both;
+}
+
+.winner-trophy {
+  border: 1px solid #f0a05066;
+  background: radial-gradient(circle at 35% 20%, #ffe0b83b, #e8983308);
+  color: #c2701a;
+  box-shadow: 0 0 55px #f3993515, inset 0 0 20px #f8b25c14;
+}
+
+.winner-trophy svg {
+  width: 55%;
+  height: 55%;
+  filter: drop-shadow(0 3px 10px #ffbf4050);
+}
+
+.winner-heading {
+  color: #9a3412;
+  font-size: clamp(13px, 1.8vw, 22px);
+  font-weight: 800;
+  letter-spacing: .25em;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.6);
+  animation: revealRise .7s .2s both;
+}
+
+.winner-name {
+  max-width: 1200px;
+  margin: 18px 0 24px;
+  padding: 0 8px;
+  font-size: clamp(32px, 6.8vw, 100px);
+  font-weight: 900;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  color: #431407;
+  text-shadow: 0 4px 25px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(67, 20, 7, 0.15);
+  animation: nameEntrance 1s .3s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.winner-rule {
+  height: 1px;
+  width: min(300px, 60vw);
+  background: linear-gradient(90deg, transparent, #f97316, transparent);
+  animation: revealRise .7s .6s both;
+}
+
+.winner-prize {
+  max-width: min(900px, 100%);
+  margin: 0 0 22px;
+  color: #7c2d12;
+  font-size: clamp(18px, 2.5vw, 32px);
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+  animation: revealRise .7s .6s both;
+}
+
+.winner-congratulations {
+  margin: 20px 0 7px;
+  font-size: clamp(18px, 2vw, 26px);
+  color: #9a3412;
+  font-weight: 600;
+  animation: revealRise .7s .7s both;
+}
+
+.winner-congratulations span {
+  margin-left: 8px;
+  font-weight: 400;
+}
+
+.winner-pool {
+  font-size: 12px;
+  color: #9a3412;
+  opacity: 0.8;
+  font-weight: 500;
+  letter-spacing: .06em;
+  animation: revealRise .7s .9s both;
+}
+
+.winner-rays {
+  position: absolute;
+  top: calc(45% - 80vmax);
+  left: calc(50% - 80vmax);
+  width: 160vmax;
+  height: 160vmax;
+  background: repeating-conic-gradient(from 0deg, transparent 0deg 19deg, #f9731608 20deg 29deg, transparent 30deg 40deg);
+  animation: raysTurn 90s linear infinite;
+  pointer-events: none;
+}
+
+.winner-spotlight {
+  position: absolute;
+  top: -25%;
+  width: 45%;
+  height: 130%;
+  background: linear-gradient(#ffedd566, transparent 80%);
+  clip-path: polygon(47% 0, 53% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 0;
+  pointer-events: none;
+}
+
+.spotlight-left {
+  left: 0;
+  --angle: -18deg;
+  animation: spotlightSweep 8s ease-in-out infinite alternate;
+}
+
+.spotlight-right {
+  right: 0;
+  --angle: 18deg;
+  animation: spotlightSweep 8s -4s ease-in-out infinite alternate-reverse;
+}
+
+.winner-ring {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: calc(45% - 150px);
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ffe6a4;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ringExpand 1.4s ease-out both;
+}
+
+.winner-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.winner-stars i {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: #ffe4a0;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ffe4a0;
+  animation: starFloat 4s var(--delay) ease-in-out infinite alternate;
+}
+
+.draw-won .draw-controls {
+  position: fixed;
+  bottom: 22px;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  margin: 0;
+}
+
+.draw-won .draw-controls>div {
+  color: #c7d9cb;
+  border-color: #d4e9d21f;
+  background: #10261eee;
+}
+
+.draw-won .draw-controls button {
+  background: #f4d48b;
+  color: #142820;
+  box-shadow: 0 4px 25px #0003;
+}
+
+@keyframes stageReveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nameEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(.82);
+    filter: blur(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes trophyEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(.3) rotate(-18deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes raysTurn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spotlightSweep {
+  from {
+    transform: rotate(var(--angle));
+  }
+
+  to {
+    transform: rotate(calc(var(--angle) * -1));
+  }
+}
+
+@keyframes ringExpand {
+  from {
+    transform: scale(.3);
+    opacity: .8;
+  }
+
+  to {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+@keyframes starFloat {
+  from {
+    opacity: .15;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: .8;
+    transform: translateY(-14px);
+  }
+}
+
+@media (max-height: 650px) {
+  .winner-content {
+    padding-top: 22px;
+  }
+
+  .winner-trophy {
+    width: 64px;
+    margin: 12px 0;
+  }
+
+  .winner-name {
+    font-size: clamp(28px, 5vw, 64px);
+    margin: 8px 0 12px;
+  }
+
+  .winner-congratulations {
+    margin-top: 10px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .draw-screen *, .draw-screen *::before, .draw-screen *::after { animation: none !important; transition: none !important; }
-  .winner-ring { display: none; }
-  .winner-stars i { opacity: .35; }
+
+  .draw-screen *,
+  .draw-screen *::before,
+  .draw-screen *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .winner-ring {
+    display: none;
+  }
+
+  .winner-stars i {
+    opacity: .35;
+  }
 }
 
 @theme {
@@ -130,7 +433,8 @@ body:has(#admin-dashboard) {
 }
 
 .center-line-indicator.winner-active {
-  opacity: 0; /* ซ่อนขีดกลางเมื่อมี winner */
+  opacity: 0;
+  /* ซ่อนขีดกลางเมื่อมี winner */
 }
 
 /* ================================================================
@@ -159,25 +463,51 @@ body:has(#admin-dashboard) {
 
 /* 1. Zoom-bounce with micro shake settling */
 @keyframes winnerPop {
-  0%   { transform: scale(1) rotate(0deg); }
-  30%  { transform: scale(1.42) rotate(-2deg); }
-  45%  { transform: scale(1.36) rotate(2.5deg); }
-  58%  { transform: scale(1.40) rotate(-1.5deg); }
-  70%  { transform: scale(1.37) rotate(1deg); }
-  82%  { transform: scale(1.39) rotate(-0.4deg); }
-  92%  { transform: scale(1.38) rotate(0.2deg); }
-  100% { transform: scale(1.38) rotate(0deg); }
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  30% {
+    transform: scale(1.42) rotate(-2deg);
+  }
+
+  45% {
+    transform: scale(1.36) rotate(2.5deg);
+  }
+
+  58% {
+    transform: scale(1.40) rotate(-1.5deg);
+  }
+
+  70% {
+    transform: scale(1.37) rotate(1deg);
+  }
+
+  82% {
+    transform: scale(1.39) rotate(-0.4deg);
+  }
+
+  92% {
+    transform: scale(1.38) rotate(0.2deg);
+  }
+
+  100% {
+    transform: scale(1.38) rotate(0deg);
+  }
 }
 
 /* 2. Emerald glow pulse after settle */
 @keyframes winnerGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow:
       0 0 0 2.5px rgba(16, 185, 129, 0.7),
       0 0 24px 6px rgba(16, 185, 129, 0.35),
       0 0 80px 20px rgba(16, 185, 129, 0.15),
       0 20px 50px -8px rgba(15, 23, 42, 0.35);
   }
+
   50% {
     box-shadow:
       0 0 0 4px rgba(16, 185, 129, 1),
@@ -189,8 +519,13 @@ body:has(#admin-dashboard) {
 
 /* 3. Shimmer shine sweep ไปบนการ์ด */
 @keyframes winnerShimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 /* The vertical moving reel */
@@ -208,7 +543,8 @@ body:has(#admin-dashboard) {
 }
 
 .reel-card {
-  position: relative; /* needed for z-index */
+  position: relative;
+  /* needed for z-index */
   width: 88%;
   height: var(--reel-item-height);
   display: flex;
@@ -233,12 +569,10 @@ body:has(#admin-dashboard) {
 
   /* Layered gradient: shimmer + white base */
   background:
-    linear-gradient(
-      105deg,
+    linear-gradient(105deg,
       transparent 30%,
       rgba(255, 255, 255, 0.55) 50%,
-      transparent 70%
-    ),
+      transparent 70%),
     #ffffff !important;
   background-size: 200% auto !important;
 
