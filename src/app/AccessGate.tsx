@@ -35,7 +35,9 @@ export default function AccessGate({ children }: { children: ReactNode }) {
     const allowed = role === 'admin' || (role === 'display' && !pathname.startsWith('/admin'));
     if (ready && session && allowed) return <>
         {children}
-        <button onClick={() => void supabase.auth.signOut()} className="fixed right-3 top-3 z-[300] rounded-lg border border-slate-200 bg-white/90 px-3 py-1.5 text-xs text-slate-600">Sign out</button>
+        {pathname.startsWith('/admin') && (
+            <button onClick={() => void supabase.auth.signOut()} className="fixed right-3 top-3 z-[300] rounded-lg border border-slate-200 bg-white/90 px-3 py-1.5 text-xs text-slate-600 shadow-sm hover:bg-slate-50 transition-colors">Sign out</button>
+        )}
     </>;
     return <main className="flex min-h-screen items-center justify-center bg-slate-50 p-6">
         <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
