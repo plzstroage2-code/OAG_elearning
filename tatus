@@ -1,0 +1,62 @@
+warning: in the working copy of '.env.example', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'DEPLOYMENT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'DEPLOYMENT.md', LF will be replaced by CRLF the next time Git touches it
+ .env.example                              |   16 [32m+[m[31m-[m
+ .github/workflows/ci.yml                  |   23 [32m+[m
+ .gitignore                                |   48 [32m+[m[31m-[m
+ DEPLOYMENT.md                             |  130 [32m+[m
+ OAG_Logo.svg.png                          |  Bin [31m18871[m -> [32m0[m bytes
+ README.md                                 |   24 [32m+[m
+ START_HERE.md                             |   15 [31m-[m
+ Start Demo.cmd                            |    7 [31m-[m
+ TASK_STATUS.md                            |   12 [31m-[m
+ docs/DECISIONS.md                         |   10 [31m-[m
+ docs/IMPLEMENTATION_PLAN.md               |   18 [31m-[m
+ eslint.config.mjs                         |   18 [32m+[m
+ next-env.d.ts                             |    7 [31m-[m
+ next.config.ts                            |   38 [32m+[m[31m-[m
+ package-lock.json                         | 6773 [32m+++++++++++++++++++++++++[m[31m----[m
+ package.json                              |   50 [32m+[m[31m-[m
+ postcss.config.mjs                        |    7 [32m+[m
+ public/favicon.svg                        |    1 [31m-[m
+ public/file.svg                           |    1 [32m+[m
+ public/globe.svg                          |    1 [32m+[m
+ public/next.svg                           |    1 [32m+[m
+ public/oag-logo.png                       |  Bin [31m18871[m -> [32m0[m bytes
+ public/participants-template.csv          |    3 [31m-[m
+ public/vercel.svg                         |    1 [32m+[m
+ public/window.svg                         |    1 [32m+[m
+ scripts/admin.ts                          |   24 [31m-[m
+ scripts/checkpoint.mjs                    |   27 [31m-[m
+ src/app/AccessGate.tsx                    |   55 [32m+[m
+ src/app/WinnerCelebration.tsx             |   52 [32m+[m
+ src/app/admin/WinnerHistory.tsx           |  111 [32m+[m
+ src/app/admin/layout.tsx                  |   27 [32m+[m
+ src/app/admin/page.tsx                    |  467 [32m++[m
+ src/app/api/draw/[...action]/route.ts     |   69 [31m-[m
+ src/app/error.tsx                         |    8 [32m+[m
+ src/app/favicon.ico                       |  Bin [31m0[m -> [32m25931[m bytes
+ src/app/globals.css                       | 2160 [32m++[m[31m-------[m
+ src/app/layout.tsx                        |   29 [32m+[m[31m-[m
+ src/app/page.tsx                          |  517 [32m++[m[31m-[m
+ src/components/draw-stage.tsx             | 1424 [31m------[m
+ src/lib/backup.ts                         |  154 [31m-[m
+ src/lib/csv.ts                            |  143 [31m-[m
+ src/lib/dataService.ts                    |  137 [32m+[m
+ src/lib/domain.ts                         |  492 [31m---[m
+ src/lib/drawConfig.ts                     |   51 [32m+[m
+ src/lib/drawStateModel.ts                 |   23 [32m+[m
+ src/lib/store.ts                          |  256 [31m--[m
+ src/lib/supabase.ts                       |    9 [32m+[m
+ src/lib/types.ts                          |  123 [31m-[m
+ src/lib/useDrawState.ts                   |   66 [32m+[m
+ src/lib/winnerHistory.ts                  |   62 [32m+[m
+ supabase/001_initial.sql                  |   27 [31m-[m
+ supabase/migrations/000000_init.sql       |   36 [32m+[m
+ supabase/migrations/000001_production.sql |  109 [32m+[m
+ tests/api.test.ts                         |   29 [31m-[m
+ tests/domain.test.ts                      |   70 [31m-[m
+ tests/production.test.mjs                 |   94 [32m+[m
+ tests/store.test.ts                       |   29 [31m-[m
+ tsconfig.json                             |   35 [32m+[m[31m-[m
+ 58 files changed, 8384 insertions(+), 5736 deletions(-)
