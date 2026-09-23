@@ -1,4 +1,4 @@
-# OAGTH Lucky Award
+# OAG_elearning — Lucky Draw
 
 Next.js presentation screen and admin dashboard backed by Supabase Auth/Postgres.
 

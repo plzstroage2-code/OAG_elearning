@@ -67,8 +67,8 @@ Production build จะหยุดเมื่อไม่มี configuration;
 
 Production repository: https://github.com/plzstroage2-code/OAG_elearning
 Local branch: `production-readiness`. The local history is preserved from the previous repository.
-The origin URL now points to the new repository. This change does not push commits or replace its main branch.
-Inspect the new remote history before merging or pushing; do not force-push over existing work.
+The origin URL points to the new repository. Its initial commit has been merged into this branch, preserving both histories without a force-push.
+Review and merge this branch only after Supabase and Vercel are configured; the production main branch is not replaced by pushing this review branch.
 
 ```powershell
 git remote -v
