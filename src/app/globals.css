@@ -59,10 +59,17 @@
 }
 
 .winner-trophy {
+  display: grid;
+  place-items: center;
+  width: clamp(84px, 14vh, 140px);
+  aspect-ratio: 1;
+  margin: 25px 0 20px;
+  border-radius: 50%;
   border: 1px solid #f0a05066;
   background: radial-gradient(circle at 35% 20%, #ffe0b83b, #e8983308);
   color: #c2701a;
   box-shadow: 0 0 55px #f3993515, inset 0 0 20px #f8b25c14;
+  animation: trophyEntrance 1s cubic-bezier(.16,1,.3,1) both;
 }
 
 .winner-trophy svg {
