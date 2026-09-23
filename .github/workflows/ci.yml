@@ -1,0 +1,23 @@
+name: Production checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      # Compilation check only. These public placeholders never access a real project.
+      # Vercel must rebuild with its own real Production/Preview environment values.
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_LUCKYDRAW_SUPABASE_URL: https://build-check.supabase.co
+          NEXT_PUBLIC_LUCKYDRAW_SUPABASE_KEY: sb_publishable_build_check_only

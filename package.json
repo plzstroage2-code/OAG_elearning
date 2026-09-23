@@ -1,33 +1,41 @@
 {
-  "name": "e-learning-draw",
+  "name": "luckydraw",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname 127.0.0.1 --port 3100",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start --hostname 127.0.0.1 --port 3100",
+    "start": "next start",
+    "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts",
-    "checkpoint": "node scripts/checkpoint.mjs",
-    "admin": "tsx --env-file-if-exists=.env.local scripts/admin.ts"
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run lint && npm run typecheck && npm test"
   },
   "dependencies": {
-    "@fontsource/noto-sans-thai": "^5.3.0",
-    "@supabase/supabase-js": "^2.57.0",
-    "lucide-react": "^0.468.0",
-    "motion": "^12.23.0",
-    "next": "^16.0.0",
-    "pg": "^8.16.3",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "zod": "^4.1.0"
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^13.3.0",
+    "lucide-react": "^1.46.0",
+    "next": "16.3.5",
+    "papaparse": "^5.7.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
-    "@types/pg": "^8.15.5",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "tsx": "^4.20.0",
-    "typescript": "^5.9.0"
+    "@electric-sql/pglite": "^0.5.8",
+    "@tailwindcss/postcss": "^4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^20",
+    "@types/papaparse": "^5.5.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
