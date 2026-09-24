@@ -19,6 +19,8 @@ export default function ModernLuckyDraw() {
     const { drawState, connectionError } = useDrawState();
     const [dataError, setDataError] = useState('');
     const [participants, setParticipants] = useState<Participant[]>([]);
+    const [allParticipants, setAllParticipants] = useState<Participant[]>([]);
+    const [winnerParticipantId, setWinnerParticipantId] = useState<string | null>(null);
     const [prizes, setPrizes] = useState<Prize[]>([]);
     const [drawPrizeId, setDrawPrizeId] = useState<string | null>(null);
     const [cardsList, setCardsList] = useState<string[]>([]);
@@ -58,8 +60,9 @@ export default function ModernLuckyDraw() {
     useEffect(() => {
         const load = async () => {
             try {
-                const data = await dataService.getActiveParticipants();
-                setParticipants(data); setDataError('');
+                const data = await dataService.getParticipants();
+                setAllParticipants(data);
+                setParticipants(data.filter(person => person.status === 'Active')); setDataError('');
             } catch { setDataError('Could not load participants. Retrying...'); }
         };
         load();
@@ -150,8 +153,9 @@ export default function ModernLuckyDraw() {
 
     }, [playWinFanfare]);
 
-    const startSpin = useCallback((selectedWinner: string) => {
+    const startSpin = useCallback((selectedWinner: string, participantId: string | null = null) => {
         if (isSpinningRef.current) return;
+        setWinnerParticipantId(participantId);
         isSpinningRef.current = true;
         setIsSpinning(true);
         displayedDrawIdRef.current = drawState.drawId;
@@ -395,17 +399,20 @@ export default function ModernLuckyDraw() {
         } else if (drawState.phase === 'SHUFFLE') {
             if (!isSpinningRef.current) {
                 if (isSupabaseConfigured && drawState.targetWinnerName) {
-                    startSpin(drawState.targetWinnerName);
+                    startSpin(drawState.targetWinnerName, drawState.targetWinnerId);
                     return;
                 }
                 let winName = "ผู้โชคดี";
+                let participantId = drawState.targetWinnerId;
                 if (drawState.targetWinnerId) {
                     const p = participants.find(x => x.id === drawState.targetWinnerId);
                     if (p) winName = p.name;
                 } else if (participants.length > 0) {
-                    winName = participants[Math.floor(Math.random() * participants.length)].name;
+                    const chosen = participants[Math.floor(Math.random() * participants.length)];
+                    winName = chosen.name;
+                    participantId = chosen.id;
                 }
-                startSpin(winName);
+                startSpin(winName, participantId);
             }
         } else if (drawState.phase === 'WINNER' && drawState.targetWinnerName && (!winnerName || displayedDrawIdRef.current !== drawState.drawId)) {
             // Recover the committed result after a refresh or a disconnected display.
@@ -414,6 +421,7 @@ export default function ModernLuckyDraw() {
             isSpinningRef.current = false;
             setIsSpinning(false); setIsSuspense(false);
             setDrawPrizeId(drawState.currentPrizeId);
+            setWinnerParticipantId(drawState.targetWinnerId);
             setDrawCount(drawState.poolCount ?? participants.length);
             hasDrawnRef.current = true;
             displayedDrawIdRef.current = drawState.drawId;
@@ -446,15 +454,16 @@ export default function ModernLuckyDraw() {
     const handleManualSpin = () => {
         if (isSpinning) return;
         const pool = participants.length > 0 ? participants.map(p => p.name) : isDemoMode ? fallbackNamesPool : ['?'];
-        const chosen = pool[Math.floor(Math.random() * pool.length)];
-        startSpin(chosen);
+        const chosenIndex = Math.floor(Math.random() * pool.length);
+        const chosen = pool[chosenIndex];
+        startSpin(chosen, participants[chosenIndex]?.id ?? null);
     };
 
     return (
         <main className={`draw-screen min-h-screen flex flex-col items-center justify-center p-6 relative select-none ${isSuspense ? 'draw-suspense' : ''} ${winnerName ? 'draw-won' : ''}`}>
             {(connectionError || dataError) && <p role="alert" className="fixed bottom-3 left-3 z-[250] rounded-lg bg-red-50 p-3 text-sm text-red-800">{connectionError || dataError}</p>}
             <div className="suspense-vignette" aria-hidden="true" />
-            {winnerName && <WinnerCelebration name={winnerName} count={drawCount} prizeName={prizeName} />}
+            {winnerName && <WinnerCelebration name={winnerName} department={allParticipants.find(person => person.id === winnerParticipantId)?.department} count={drawCount} prizeName={prizeName} />}
             <p className="sr-only" role="status" aria-live="polite">{winnerName ? `Winner: ${winnerName}` : statusLabel}</p>
             {/* Ambient Studio Background */}
             <div className="modern-backdrop"></div>

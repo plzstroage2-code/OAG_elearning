@@ -4,7 +4,7 @@ import { useEffect, type CSSProperties } from "react";
 import { Trophy, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 
-export default function WinnerCelebration({ name, count, prizeName }: { name: string; count: number; prizeName?: string }) {
+export default function WinnerCelebration({ name, department, count, prizeName }: { name: string; department?: string; count: number; prizeName?: string }) {
     useEffect(() => {
         const colors = ["#fbbf24", "#fde68a", "#fff8e7", "#34d399"];
         const timers: ReturnType<typeof setTimeout>[] = [];
@@ -42,6 +42,7 @@ export default function WinnerCelebration({ name, count, prizeName }: { name: st
                 <div className="winner-trophy" aria-hidden="true"><Trophy strokeWidth={1.4} /></div>
                 <p className="winner-heading">WE HAVE A WINNER!</p>
                 <h2 className="winner-name">{name}</h2>
+                {department?.trim() && <p className="winner-department"><span className="sr-only">แผนก: </span>{department.trim()}</p>}
                 {prizeName && <p className="winner-prize"><span className="sr-only">Prize: </span>{prizeName}</p>}
                 <div className="winner-rule" />
                 <p className="winner-congratulations">ยินดีด้วย! <span>Congratulations</span></p>
