@@ -460,7 +460,7 @@ export default function ModernLuckyDraw() {
     };
 
     return (
-        <main className={`draw-screen min-h-screen flex flex-col items-center justify-center p-6 relative select-none ${isSuspense ? 'draw-suspense' : ''} ${winnerName ? 'draw-won' : ''}`}>
+        <main className={`draw-screen min-h-screen flex flex-col items-center justify-center px-4 py-6 sm:px-8 relative select-none ${isSuspense ? 'draw-suspense' : ''} ${winnerName ? 'draw-won' : ''}`}>
             {(connectionError || dataError) && <p role="alert" className="fixed bottom-3 left-3 z-[250] rounded-lg bg-red-50 p-3 text-sm text-red-800">{connectionError || dataError}</p>}
             <div className="suspense-vignette" aria-hidden="true" />
             {winnerName && <WinnerCelebration name={winnerName} department={allParticipants.find(person => person.id === winnerParticipantId)?.department} count={drawCount} prizeName={prizeName} />}
@@ -470,13 +470,13 @@ export default function ModernLuckyDraw() {
             <div className="studio-grid"></div>
 
             {/* Clean Event Header */}
-            <header className="mb-5 text-center z-10">
+            <header className="mb-6 w-full max-w-[1200px] text-center z-10">
 
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-balance text-slate-900">
                     ICTC e-Learning Award
                 </h1>
                 {prizeName && (
-                    <p className="mt-3 max-w-3xl break-words text-balance text-xl font-semibold tracking-tight text-slate-600 md:text-2xl" aria-live="polite">
+                    <p className="mt-4 break-words text-balance text-2xl font-semibold tracking-tight text-slate-600 md:text-3xl lg:text-4xl" aria-live="polite">
                         <span className="sr-only">Current prize: </span>{prizeName}
                     </p>
                 )}
@@ -501,9 +501,9 @@ export default function ModernLuckyDraw() {
             </div>
 
             {/* Footer Control & Status */}
-            <footer className="draw-controls mt-5 flex flex-col items-center gap-2.5 z-10">
+            <footer className="draw-controls mt-6 flex flex-col items-center gap-3 z-10">
                 {/* Status Badge */}
-                <div className="text-[11px] font-bold tracking-widest text-slate-400 uppercase bg-white/80 border border-slate-200 px-4 py-1.5 rounded-full shadow-xs">
+                <div className="text-sm md:text-base font-bold tracking-widest text-slate-500 uppercase bg-white/80 border border-slate-200 px-6 py-2.5 rounded-full shadow-xs">
                     {statusLabel}
                 </div>
 
@@ -511,7 +511,7 @@ export default function ModernLuckyDraw() {
                 {isDemoMode && <button
                     disabled={isSpinning}
                     onClick={handleManualSpin}
-                    className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-semibold text-xs tracking-wider uppercase rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                    className="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-semibold text-base tracking-wider uppercase rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                 >
                     {isSpinning ? "SPINNING REEL..." : winnerName ? "TEST ANOTHER DRAW" : "TEST SPIN (MANUAL)"}
                 </button>}

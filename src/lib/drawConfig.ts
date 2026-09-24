@@ -10,15 +10,15 @@ export const DRAW_CONFIG = {
     peakVelocityPxPerMs: 13,
 
     // 📐 ขนาดของแถบรายชื่อ
-    itemHeight: 72,
-    itemGap: 8,
+    itemHeight: 96,
+    itemGap: 12,
 
     // --- ระบบคำนวณอัตโนมัติ ---
     get totalDurationMs() {
         return this.durationSeconds * 1000;
     },
     get itemFullHeight() {
-        return this.itemHeight + this.itemGap; // 80px
+        return this.itemHeight + this.itemGap; // 108px
     },
 
     /**
