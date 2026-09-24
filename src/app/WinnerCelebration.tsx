@@ -5,6 +5,9 @@ import { Trophy, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 
 export default function WinnerCelebration({ name, department, count, prizeName }: { name: string; department?: string; count: number; prizeName?: string }) {
+    // Count visible characters so Thai vowels and tone marks do not shrink names unnecessarily.
+    const nameLength = Array.from(new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(name.trim())).length;
+    const nameScale = nameLength > 60 ? 0.5 : nameLength > 45 ? 0.6 : nameLength > 32 ? 0.75 : nameLength > 22 ? 0.88 : 1;
     useEffect(() => {
         const colors = ["#fbbf24", "#fde68a", "#fff8e7", "#34d399"];
         const timers: ReturnType<typeof setTimeout>[] = [];
@@ -41,7 +44,7 @@ export default function WinnerCelebration({ name, department, count, prizeName }
                 <p className="winner-eyebrow"><Sparkles size={16} /> THIS IS YOUR MOMENT <Sparkles size={16} /></p>
                 <div className="winner-trophy" aria-hidden="true"><Trophy strokeWidth={1.4} /></div>
                 <p className="winner-heading">WE HAVE A WINNER!</p>
-                <h2 className="winner-name">{name}</h2>
+                <h2 className="winner-name" style={{ '--winner-name-scale': nameScale } as CSSProperties}>{name}</h2>
                 {department?.trim() && <p className="winner-department"><span className="sr-only">แผนก: </span>{department.trim()}</p>}
                 {prizeName && <p className="winner-prize"><span className="sr-only">Prize: </span>{prizeName}</p>}
                 <div className="winner-rule" />
